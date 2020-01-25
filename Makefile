@@ -9,7 +9,7 @@ build:
 	docker build . -t ${name}:latest
 build-tagged: set-tag
 	docker build . -t ${name}:${TAG}
-push:
+push: build
 	docker push ${name}:latest
 push-tagged: build-tagged
 	docker push ${name}:${TAG}
