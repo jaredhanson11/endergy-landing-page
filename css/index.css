@@ -1,0 +1,9 @@
+.step-text {
+}
+
+.step-image {
+}
+
+.step-image > img {
+  max-width: 100%;
+}
