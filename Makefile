@@ -5,11 +5,21 @@ name=${docker-user}/endergy-landing-page
 
 set-tag:
 	$(eval TAG=`git rev-parse --short HEAD`)
-build:
-	docker build . -t ${name}:latest
+
+build-client:
+	docker build . -f Dockerfile.public -t ${name}-client:latest
+build-server:
+	docker build . -f Dockerfile.backend -t ${name}-server:latest
 build-tagged: set-tag
-	docker build . -t ${name}:${TAG}
-push: build
-	docker push ${name}:latest
+	docker build . -f Dockerfile.public -t ${name}-client:${TAG}
+	docker build . -f Dockerfile.backend -t ${name}-server:${TAG}
+build: build-server build-client
+
+push-client: build-client
+	docker push ${name}-client:latest
+push-server:
+	docker push ${name}-server:latest
 push-tagged: build-tagged
-	docker push ${name}:${TAG}
+	docker push ${name}-client:${TAG}
+	docker push ${name}-server:${TAG}
+push: push-client push-server

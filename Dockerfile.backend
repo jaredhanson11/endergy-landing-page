@@ -1,0 +1,3 @@
+FROM jaredhanson11/serverbase
+COPY ./backend ./
+RUN pip install -r requirements.txt
