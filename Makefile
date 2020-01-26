@@ -17,7 +17,7 @@ build: build-server build-client
 
 push-client: build-client
 	docker push ${name}-client:latest
-push-server:
+push-server: build-server
 	docker push ${name}-server:latest
 push-tagged: build-tagged
 	docker push ${name}-client:${TAG}
