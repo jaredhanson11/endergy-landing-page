@@ -11,7 +11,7 @@ class HeartbeatController(Resource):
     '''
     Controller with server's heartbeat.
     '''
-    def get(self):  # pylint: disable=no-self-use
+    def get(self):
         '''
         Returns current time.
         '''

@@ -3,13 +3,15 @@ Visitors to Endergy landing page can request a demo of the product. DemoModel
 is an object that represents the demo request.
 '''
 
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
 
-Base = declarative_base()
+from sqlalchemy import Column, Integer, String, DateTime
+
+from . import Base, BaseModel
+from ..objects.demo_request import DemoRequest
 
 
-class DemoModel(Base):  # pylint: disable=too-few-public-methods
+class DemoModel(Base, BaseModel):
     '''
     DemoModel stores requests for more info on Endergy made by potential
     customers on the landing page.
@@ -18,16 +20,16 @@ class DemoModel(Base):  # pylint: disable=too-few-public-methods
     __tablename__ = 'demo'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), required=True)
+    name = Column(String(50))
     email = Column(String(120))
     phone = Column(String(20))
     use_case = Column(String(20))
     use_case_description = Column(String(2000))
+    created_date = Column(DateTime, default=datetime.utcnow)
 
-    def __init__(self, name=None, email=None, phone=None, use_case=None,
-                 use_case_desc=None):  # pylint: disable=too-many-arguments
-        self.name = name
-        self.email = email
-        self.phone = phone
-        self.use_case = use_case
-        self.use_case_description = use_case_desc
+    def __init__(self, demo_request: DemoRequest):
+        self.name = demo_request.name
+        self.email = demo_request.email
+        self.phone = demo_request.phone
+        self.use_case = demo_request.use_case
+        self.use_case_description = demo_request.use_case_description
