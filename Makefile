@@ -9,7 +9,7 @@ set-tag:
 build-client:
 	docker build . -f Dockerfile.public -t ${name}-client:latest
 build-server:
-	docker build . -f Dockerfile.backend -t ${name}-server:latest
+	docker build . -f Dockerfile.backend --build-arg PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL} -t ${name}-server:latest
 build-tagged: set-tag
 	docker build . -f Dockerfile.public -t ${name}-client:${TAG}
 	docker build . -f Dockerfile.backend -t ${name}-server:${TAG}

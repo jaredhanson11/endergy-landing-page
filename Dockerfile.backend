@@ -2,4 +2,5 @@ FROM jaredhanson11/serverbase
 COPY ./backend ./
 # Need postgresql-dev for psycopg2
 RUN apk add postgresql-dev
+ARG PIP_EXTRA_INDEX_URL
 RUN pip install -r requirements.txt
